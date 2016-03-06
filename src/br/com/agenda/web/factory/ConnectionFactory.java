@@ -15,18 +15,18 @@ public class ConnectionFactory {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 			} catch (ClassNotFoundException e) {
-				System.out.println("Erro ao registrar o drive de conexão para base de dados fj21...");
+				System.out.println("Erro ao registrar o drive de conexão para base de dados da Agenda Web...");
 				e.printStackTrace();
 			}
 
-			System.out.println("Conectando a base de dados fj21...");
+			System.out.println("Conectando a base de dados da Agenda Web...");
 
-			return DriverManager.getConnection("jdbc:mysql://localhost/fj21", "root", "homepc21");
+			return DriverManager.getConnection("jdbc:mysql://localhost/fj21", "reoot", "homepc21");
 
 
 		} catch (SQLException e) {
 
-			System.err.println("Erro ao conectar com a base de dados fj21!");
+			System.err.println("Erro ao conectar com a base de dados da Agenda Web!");
 			throw new RuntimeException(e);
 
 		}

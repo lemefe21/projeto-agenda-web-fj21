@@ -20,6 +20,7 @@ public class ContatoDAO {
 	public ContatoDAO() {
 
 		this.connection = new ConnectionFactory().getConnection();
+
 		try {
 
 			System.out.println("Conectado! " + " - Conexão fechada: " + connection.isClosed());
