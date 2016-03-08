@@ -21,7 +21,7 @@ public class ConnectionFactory {
 
 			System.out.println("Conectando a base de dados da Agenda Web...");
 
-			return DriverManager.getConnection("jdbc:mysql://localhost/fj21", "reoot", "homepc21");
+			return DriverManager.getConnection("jdbc:mysql://localhost/fj21", "root", "homepc21");
 
 
 		} catch (SQLException e) {
