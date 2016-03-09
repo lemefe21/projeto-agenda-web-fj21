@@ -1,7 +1,6 @@
 package br.com.agenda.web.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,11 +12,12 @@ import br.com.agenda.web.modelo.Funcionario;
 
 public class FuncionarioDAO {
 
+	ConnectionFactory instance = ConnectionFactory.getInstance();
 	private Connection connection;
 
 	public FuncionarioDAO() {
 
-		this.connection = new ConnectionFactory().getConnection();
+		this.connection = instance.getConnection();
 		try {
 
 			System.out.println("Conectado! " + " - Conexão fechada: " + connection.isClosed());
@@ -27,9 +27,9 @@ public class FuncionarioDAO {
 		}
 
 	}
-	
+
 	public void adiciona(Funcionario funcionario){
-		
+
 		String sql = "insert into funcionario (nome, usuario, senha) values (?,?,?)";
 
 		try{
@@ -40,24 +40,24 @@ public class FuncionarioDAO {
 			stmt.setString(3, funcionario.getSenha());
 
 			stmt.execute();
-			
+
 			ResultSet rs = stmt.getGeneratedKeys();
 			if(rs.next()){
 				funcionario.setId(rs.getLong(1));
 				System.out.println("Adicionado com sucesso!");
 				System.out.println(funcionario);
-				
+
 			}
-			
+
 			stmt.close();
 
 		}catch(SQLException e){
 			throw new DAOException(e);
 
 		}
-		
+
 	}
-	
+
 	public void fecharConexao(){
 
 		try {
@@ -71,5 +71,5 @@ public class FuncionarioDAO {
 		}
 
 	}
-	
+
 }

@@ -15,16 +15,14 @@ import br.com.agenda.web.modelo.Contato;
 
 public class ContatoDAO {
 
+	ConnectionFactory instance = ConnectionFactory.getInstance();
 	private Connection connection;
 
 	public ContatoDAO() {
 
-		this.connection = new ConnectionFactory().getConnection();
-
+		this.connection = instance.getConnection();
 		try {
-
 			System.out.println("Conectado! " + " - Conexão fechada: " + connection.isClosed());
-
 		} catch (SQLException e) {
 			throw new DAOException(e);
 		}
@@ -42,14 +40,17 @@ public class ContatoDAO {
 
 		try{
 
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
-			stmt.setString(1, contato.getNome());
-			stmt.setString(2, contato.getEmail());
-			stmt.setString(3, contato.getEndereco());
-			stmt.setDate(4, new Date(contato.getDataNascimento().getTimeInMillis()));
+			//Try-with-resources Statement, implementa o java.lang.AutoCloseable a partir do Java 7
+			try(PreparedStatement stmt = this.connection.prepareStatement(sql)){
 
-			stmt.execute();
-			stmt.close();
+				stmt.setString(1, contato.getNome());
+				stmt.setString(2, contato.getEmail());
+				stmt.setString(3, contato.getEndereco());
+				stmt.setDate(4, new Date(contato.getDataNascimento().getTimeInMillis()));
+
+				stmt.execute();
+
+			}
 
 		}catch(SQLException e){
 			throw new DAOException(e);
@@ -62,18 +63,20 @@ public class ContatoDAO {
 		try{
 
 			List<Contato> listaContatos = new ArrayList<Contato>();
-			PreparedStatement stmt = this.connection.prepareStatement("select * from CONTATOS");
-			ResultSet result = stmt.executeQuery();
+			try(PreparedStatement stmt = this.connection.prepareStatement("select * from CONTATOS")){
 
-			while(result.next()){
+				try(ResultSet result = stmt.executeQuery()){
 
-				Contato contato = parseResultSetToContato(result);
-				listaContatos.add(contato);
+					while(result.next()){
+
+						Contato contato = parseResultSetToContato(result);
+						listaContatos.add(contato);
+
+					}
+
+				}
 
 			}
-
-			result.close();
-			stmt.close();
 
 			return listaContatos;
 
@@ -91,20 +94,21 @@ public class ContatoDAO {
 			List<Contato>lista = new ArrayList<Contato>();
 
 			String sql = "select * from CONTATOS where nome like ?";
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
-			stmt.setString(1, nome + "%");
+			try(PreparedStatement stmt = this.connection.prepareStatement(sql)){
 
-			ResultSet result = stmt.executeQuery();
+				stmt.setString(1, nome + "%");
 
-			while(result.next()){
+				try(ResultSet result = stmt.executeQuery()){
 
-				Contato contato = parseResultSetToContato(result);
-				lista.add(contato);
+					while(result.next()){
 
+						Contato contato = parseResultSetToContato(result);
+						lista.add(contato);
+
+					}
+
+				}
 			}
-
-			result.close();
-			stmt.close();
 
 			return lista;
 
@@ -121,17 +125,19 @@ public class ContatoDAO {
 			Contato contato = null;
 
 			String sql = "select * from CONTATOS where id = ?";
-			PreparedStatement stmt = this.connection.prepareStatement(sql);
-			stmt.setLong(1, id);
+			try(PreparedStatement stmt = this.connection.prepareStatement(sql)){
 
-			ResultSet result = stmt.executeQuery();
+				stmt.setLong(1, id);
 
-			while(result.next()){
-				contato = parseResultSetToContato(result);
+				try(ResultSet result = stmt.executeQuery()){
+
+					while(result.next()){
+						contato = parseResultSetToContato(result);
+					}
+
+				}
+
 			}
-
-			result.close();
-			stmt.close();
 
 			return contato;
 
@@ -147,15 +153,17 @@ public class ContatoDAO {
 
 		try{
 
-			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setString(1, contato.getNome());
-			stmt.setString(2, contato.getEmail());
-			stmt.setString(3, contato.getEndereco());
-			stmt.setDate(4, new Date(contato.getDataNascimento().getTimeInMillis()));
-			stmt.setLong(5, contato.getId());
+			try(PreparedStatement stmt = connection.prepareStatement(sql)){
 
-			stmt.execute();
-			stmt.close();
+				stmt.setString(1, contato.getNome());
+				stmt.setString(2, contato.getEmail());
+				stmt.setString(3, contato.getEndereco());
+				stmt.setDate(4, new Date(contato.getDataNascimento().getTimeInMillis()));
+				stmt.setLong(5, contato.getId());
+
+				stmt.execute();
+
+			}
 
 		}catch(SQLException e){
 			throw new DAOException(e);
@@ -171,11 +179,12 @@ public class ContatoDAO {
 
 		try{
 
-			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setLong(1, contato.getId());
+			try(PreparedStatement stmt = connection.prepareStatement(sql)){
 
-			stmt.execute();
-			stmt.close();
+				stmt.setLong(1, contato.getId());
+				stmt.execute();
+
+			}
 
 		}catch(SQLException e){
 			throw new DAOException(e);

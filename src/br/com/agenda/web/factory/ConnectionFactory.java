@@ -6,6 +6,21 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 
+	private static ConnectionFactory instance;
+
+	private ConnectionFactory() {
+	}
+
+	//Utilizando Design Pattern Singleton
+	public static synchronized ConnectionFactory getInstance() {
+
+		if (instance == null) {
+			instance = new ConnectionFactory();
+		}
+		return instance;
+
+	}
+
 	// Desing Pattern - Factory
 	// (encapsula a criação de um objeto complexo)
 	public Connection getConnection() {
@@ -23,12 +38,9 @@ public class ConnectionFactory {
 
 			return DriverManager.getConnection("jdbc:mysql://localhost/fj21", "root", "homepc21");
 
-
 		} catch (SQLException e) {
-
 			System.err.println("Erro ao conectar com a base de dados da Agenda Web!");
 			throw new RuntimeException(e);
-
 		}
 
 	}

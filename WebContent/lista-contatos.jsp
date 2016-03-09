@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -19,6 +18,9 @@
 </head>
 <body>
 
+	<c:import url="cabecalho.jsp"/>
+
+	<!-- instancia a lista de contatos -->
 	<jsp:useBean id="dao" class="br.com.agenda.web.dao.ContatoDAO"></jsp:useBean>
 
 	<table>
@@ -31,11 +33,22 @@
 			<th>Remover</th>
 			<th>Alterar</th>
 		</tr>
+		
+		<!-- itera a lista -->
 		<c:forEach var="contato" items="${dao.lista}" varStatus="idLinha">
 			<tr>
 				<td>${idLinha.count}</td>
 				<td>${contato.nome}</td>
-				<td>${contato.email}</td>
+				<td>
+					<c:choose>
+						<c:when test="${not empty contato.email}">
+							<a href="mailto:${contato.email}">${contato.email}</a>
+						</c:when>
+						<c:otherwise>
+							E-mail não informado!
+						</c:otherwise>
+					</c:choose>
+				</td>
 				<td>${contato.endereco}</td>
 				<td>${contato.dataNascimento}</td>
 				<td><a href="">Remover</a></td>
@@ -43,6 +56,8 @@
 			</tr>
 		</c:forEach>
 	</table>
+
+	<c:import url="rodape.jsp"/>
 
 </body>
 </html>
