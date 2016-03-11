@@ -5,16 +5,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.agenda.web.mvc.interfaces.Logica;
 
-public class PrimeiraLogica implements Logica{
+public class AdicionaContatoLogica implements Logica{
 
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		System.out.println("Executando a logica...");
-		System.out.println("Retornando a nome da página JSP...");
+		//logica chamada ao salvar o contato no botao do formulario
 
-		return "primeira-logica.jsp";
-
+		return null;
 	}
 
 }

@@ -20,13 +20,14 @@
 <body>
 
 	<c:import url="cabecalho.jsp"/>
-
-	<!-- instancia a lista de contatos -->
-	<jsp:useBean id="dao" class="br.com.agenda.web.dao.ContatoDAO"></jsp:useBean>
+	
+	<!-- gerenciador de contatos sem o id será chamada a logica para incluisao -->
+	<p><a href="mvc?logica=GerenciadorContatoLogica">Adiciona novo contato</a></p>
 
 	<table>
 		<tr>
 			<th>Linha</th>
+			<th>ID Contato</th>
 			<th>Nome</th>
 			<th>E-mail</th>
 			<th>Endereço</th>
@@ -35,10 +36,11 @@
 			<th>Alterar</th>
 		</tr>
 		
-		<!-- itera a lista -->
-		<c:forEach var="contato" items="${dao.lista}" varStatus="idLinha">
+		<!-- itera a lista que foi inserida pelo request -->
+		<c:forEach var="contato" items="${listaContatos}" varStatus="idLinha">
 			<tr>
 				<td>${idLinha.count}</td>
+				<td>${contato.id}</td>
 				<td>${contato.nome}</td>
 				<td>
 					<c:choose>
@@ -52,8 +54,13 @@
 				</td>
 				<td>${contato.endereco}</td>
 				<td><fmt:formatDate value="${contato.dataNascimento.time}" pattern="dd/MM/yyyy"/></td>
-				<td><a href="">Remover</a></td>
-				<td><a href="">Alterar</a></td>
+				
+				<!-- chama a logica de remocao e passa o id do contato -->
+				<td><a href="mvc?logica=RemoveContatoLogica&id=${contato.id}">Remover</a></td>
+				
+				<!-- chama a logica que gerencia o contato e passa o id para alteracao -->
+				<td><a href="mvc?logica=GerenciadorContatoLogica&id=${contato.id}">Alterar</a></td>
+				
 			</tr>
 		</c:forEach>
 	</table>

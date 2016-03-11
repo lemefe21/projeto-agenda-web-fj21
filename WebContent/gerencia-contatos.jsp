@@ -15,11 +15,11 @@
 
 	<h1>Adiciona Contato Agenda Web</h1>
 	<hr/>
-	<form action="adicionaContato" method="post">
-		<agendaweb:campoInput descricao="Nome" atributo="nome" tipo="text" id="nome"/><br/>
-		<agendaweb:campoInput descricao="E-mail" atributo="email" tipo="text" id="email"/><br/>
-		<agendaweb:campoInput descricao="Endereço" atributo="endereco" tipo="text" id="endereco"/><br/>
-		<agendaweb:campoData descricao="Data Nascimento" id="dataNascimento"/><br/>
+	<form action="mvc?logica=AdicionaContatoLogica" method="post">
+		<agendaweb:campoInput descricao="Nome" atributo="nome" tipo="text" id="nome" valor="${idContatoAlterar}"/><br/>
+		<agendaweb:campoInput descricao="E-mail" atributo="email" tipo="text" id="email" valor="${idContatoAlterar}"/><br/>
+		<agendaweb:campoInput descricao="Endereço" atributo="endereco" tipo="text" id="endereco" valor="${idContatoAlterar}"/><br/>
+		<agendaweb:campoData descricao="Data Nascimento" id="dataNascimento" valor="${idContatoAlterar}"/><br/>
 		<input type="submit" value="Gravar" />
 	</form>
 	<hr/>

@@ -1,4 +1,4 @@
-package br.com.agenda.web.mvc.logica;
+package br.com.agenda.web.mvc.interfaces;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

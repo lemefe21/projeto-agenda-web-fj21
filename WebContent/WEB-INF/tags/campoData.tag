@@ -1,9 +1,10 @@
 <%@ tag language="java" pageEncoding="ISO-8859-1"%>
 <%@ attribute name="id" required="true"	%>
 <%@ attribute name="descricao" required="true"	%>
+<%@ attribute name="valor" required="true" %>
 
 <label for="${id}">${descricao} </label>
-<input id="${id}" name="${id}"/>
+<input id="${id}" name="${id}" value="${valor}"/>
 <script>
 	$("#${id}").datepicker({
 		dateFormat: 'dd/mm/yy',
