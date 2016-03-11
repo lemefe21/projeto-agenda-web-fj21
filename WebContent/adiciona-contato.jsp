@@ -15,7 +15,7 @@
 
 	<h1>Adiciona Contato Agenda Web</h1>
 	<hr/>
-	<form action="adicionaContato">
+	<form action="adicionaContato" method="post">
 		<agendaweb:campoInput descricao="Nome" atributo="nome" tipo="text" id="nome"/><br/>
 		<agendaweb:campoInput descricao="E-mail" atributo="email" tipo="text" id="email"/><br/>
 		<agendaweb:campoInput descricao="Endereço" atributo="endereco" tipo="text" id="endereco"/><br/>
