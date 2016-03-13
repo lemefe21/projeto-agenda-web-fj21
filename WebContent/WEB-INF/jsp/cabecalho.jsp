@@ -11,8 +11,8 @@
 	<hr />
 	<!-- melhora o uso de caminhos absolutos -->
 	<img src="<c:url value="/imagens/caelum-ensino-inovacao-ldpi.png"/>"/>
-	<hr />
 	<h2>Agenda de contatos</h2>
+	<hr />
 
 </body>
 </html>

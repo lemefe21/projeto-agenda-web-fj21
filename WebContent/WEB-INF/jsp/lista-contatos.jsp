@@ -22,7 +22,7 @@
 	<c:import url="cabecalho.jsp"/>
 	
 	<!-- gerenciador de contatos sem o id será chamada a logica para incluisao -->
-	<p><a href="mvc?logica=GerenciadorContatoLogica">Adiciona novo contato</a></p>
+	<p><a href="mvc?logica=CarregaContatoLogica">Adiciona novo contato</a></p>
 
 	<table>
 		<tr>
@@ -59,7 +59,7 @@
 				<td><a href="mvc?logica=RemoveContatoLogica&id=${contato.id}">Remover</a></td>
 				
 				<!-- chama a logica que gerencia o contato e passa o id para alteracao -->
-				<td><a href="mvc?logica=GerenciadorContatoLogica&id=${contato.id}">Alterar</a></td>
+				<td><a href="mvc?logica=CarregaContatoLogica&id=${contato.id}">Alterar</a></td>
 				
 			</tr>
 		</c:forEach>

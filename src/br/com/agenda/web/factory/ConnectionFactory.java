@@ -15,6 +15,7 @@ public class ConnectionFactory {
 	public static synchronized ConnectionFactory getInstance() {
 
 		if (instance == null) {
+			System.out.println("Conectando a base de dados da Agenda Web...");
 			instance = new ConnectionFactory();
 		}
 		return instance;
@@ -33,9 +34,6 @@ public class ConnectionFactory {
 				System.out.println("Erro ao registrar o drive de conexão para base de dados da Agenda Web...");
 				e.printStackTrace();
 			}
-
-			System.out.println("Conectando a base de dados da Agenda Web...");
-
 			return DriverManager.getConnection("jdbc:mysql://localhost/fj21", "root", "homepc21");
 
 		} catch (SQLException e) {

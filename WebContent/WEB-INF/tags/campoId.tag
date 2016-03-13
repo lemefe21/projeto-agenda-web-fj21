@@ -6,4 +6,4 @@
 <%@ attribute name="valor" required="true" %>
 
 <label for="${id}">${descricao} </label>
-<input type="${tipo}" id="${id}" name="${nome}" value="${valor}"/>
+<input type="${tipo}" id="${id}" name="${nome}" value="${valor}" readonly="readonly"/>
