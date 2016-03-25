@@ -21,7 +21,7 @@ public class ContatoDAO {
 	public ContatoDAO() {
 
 		this.connection = instance.getConnection();
-		System.out.println("Conectado! " + " - ID Conexão: " + instance.hashCode());
+		System.out.println("Conectado! " + " - ID ConexÃ£o: " + instance.hashCode());
 
 	}
 
@@ -209,9 +209,9 @@ public class ContatoDAO {
 
 		try {
 
-			System.out.println("Fechando conexão...");
+			System.out.println("Fechando conexï¿½o...");
 			this.connection.close();
-			System.out.println("Conexão fechada: " + this.connection.isClosed());
+			System.out.println("Conexï¿½o fechada: " + this.connection.isClosed());
 
 		} catch (SQLException e) {
 			throw new DAOException(e);

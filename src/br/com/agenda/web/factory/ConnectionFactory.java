@@ -23,7 +23,7 @@ public class ConnectionFactory {
 	}
 
 	// Desing Pattern - Factory
-	// (encapsula a criaÁ„o de um objeto complexo)
+	// (encapsula a cria√ß√£o de um objeto complexo)
 	public Connection getConnection() {
 
 		try {
@@ -31,10 +31,10 @@ public class ConnectionFactory {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 			} catch (ClassNotFoundException e) {
-				System.out.println("Erro ao registrar o drive de conex„o para base de dados da Agenda Web...");
+				System.out.println("Erro ao registrar o drive de conex√£o para base de dados da Agenda Web...");
 				e.printStackTrace();
 			}
-			return DriverManager.getConnection("jdbc:mysql://localhost/fj21", "root", "homepc21");
+			return DriverManager.getConnection("jdbc:mysql://localhost/fj21", "root", "homepc");
 
 		} catch (SQLException e) {
 			System.err.println("Erro ao conectar com a base de dados da Agenda Web!");
