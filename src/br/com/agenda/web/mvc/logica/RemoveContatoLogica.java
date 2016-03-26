@@ -1,5 +1,7 @@
 package br.com.agenda.web.mvc.logica;
 
+import java.sql.Connection;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,7 +19,8 @@ public class RemoveContatoLogica implements Logica{
 		Contato contato = new Contato();
 		contato.setId(id);
 
-		ContatoDAO dao = new ContatoDAO();
+		Connection connection = (Connection) request.getAttribute("conexao");
+		ContatoDAO dao = new ContatoDAO(connection);
 		dao.removeContato(contato);
 
 		System.out.println("Excluindo contato " + contato.getId() + "...");

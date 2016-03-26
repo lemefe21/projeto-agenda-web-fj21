@@ -19,18 +19,21 @@ public class ControllerServlet extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String parametro = request.getParameter("logica");  //ex: mvc?logica=PrimeiraLogica
-		String nomeDaClasse = "br.com.agenda.web.mvc.logica." + parametro;
+		String parametro = request.getParameter("logica");  //ex: mvc?logica= (PrimeiraLogica)
+		String nomeDaClasse = "br.com.agenda.web.mvc.logica." + parametro; //path da classe PrimeiraLogica exemplo
 
 		try {
 
 			Class<?> classe = Class.forName(nomeDaClasse);
 
+			//cria uma instancia por
 			//polimorfismo para executar as logicas
 			Logica logica = (Logica) classe.newInstance();
 
+			//chama o método executa de cada classe que implementa a interface Logica
 			String pagina = logica.executa(request, response);
 
+			//encaminha para o retorno do método executa(request, response)
 			request.getRequestDispatcher(pagina).forward(request, response);
 
 		}catch(Exception e) {

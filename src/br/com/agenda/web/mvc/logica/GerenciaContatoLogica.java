@@ -1,6 +1,7 @@
 package br.com.agenda.web.mvc.logica;
 
 import java.rmi.ServerException;
+import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.agenda.web.dao.ContatoDAO;
+import br.com.agenda.web.factory.ConnectionFactory;
 import br.com.agenda.web.modelo.Contato;
 import br.com.agenda.web.mvc.interfaces.Logica;
 
@@ -26,7 +28,7 @@ public class GerenciaContatoLogica implements Logica{
 			dataNascimento = Calendar.getInstance();
 			dataNascimento.setTime(data);
 		} catch (ParseException e) {
-			throw new ServerException("A lógica de negócios causou uma exceção.", e);
+			throw new ServerException("A lÃ³gica de negÃ³cios causou uma exceÃ§Ã£o.", e);
 		}
 
 		Contato contato = new Contato(
@@ -35,7 +37,8 @@ public class GerenciaContatoLogica implements Logica{
 				request.getParameter("endereco"),
 				dataNascimento);
 
-		ContatoDAO dao = new ContatoDAO();
+		Connection connection = (Connection) request.getAttribute("conexao");
+		ContatoDAO dao = new ContatoDAO(connection);
 
 		if(idContato != null) {
 

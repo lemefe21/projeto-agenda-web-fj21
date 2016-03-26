@@ -1,5 +1,7 @@
 package br.com.agenda.web.mvc.logica;
 
+import java.sql.Connection;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,10 +14,12 @@ public class CarregaContatoLogica implements Logica{
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		Connection connection = (Connection) request.getAttribute("conexao");
+		
 		if(request.getParameter("id") != null) {
 
 			String idContato = request.getParameter("id");
-			Contato contato = new ContatoDAO().buscaPorID(Long.parseLong(idContato));
+			Contato contato = new ContatoDAO(connection).buscaPorID(Long.parseLong(idContato));
 			request.setAttribute("idContato", contato.getId());
 			request.setAttribute("nomeContato", contato.getNome());
 			request.setAttribute("emailContato", contato.getEmail());

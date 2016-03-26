@@ -15,19 +15,12 @@ import br.com.agenda.web.modelo.Contato;
 
 public class ContatoDAO {
 
-	ConnectionFactory instance = ConnectionFactory.getInstance();
 	private Connection connection;
-
-	public ContatoDAO() {
-
-		this.connection = instance.getConnection();
-		System.out.println("Conectado! " + " - ID Conexão: " + instance.hashCode());
-
-	}
 
 	public ContatoDAO(Connection connection){
 		//construtor criado para ser utilizado pelo FiltroConexao
 		this.connection = connection;
+		System.out.println("Conectado via construtor! " + " - ID Conexão: " + connection.hashCode());
 	}
 
 	public void adiciona(Contato contato){
@@ -36,7 +29,7 @@ public class ContatoDAO {
 
 		try{
 
-			//Try-with-resources Statement, implementa o java.lang.AutoCloseable a partir do Java 7
+			//Try-with-resources Statement - implementa o java.lang.AutoCloseable a partir do Java 7
 			try(PreparedStatement stmt = this.connection.prepareStatement(sql)){
 
 				stmt.setString(1, contato.getNome());
@@ -209,9 +202,9 @@ public class ContatoDAO {
 
 		try {
 
-			System.out.println("Fechando conex�o...");
+			System.out.println("Fechando conexão...");
 			this.connection.close();
-			System.out.println("Conex�o fechada: " + this.connection.isClosed());
+			System.out.println("Conexão fechada: " + this.connection.isClosed());
 
 		} catch (SQLException e) {
 			throw new DAOException(e);

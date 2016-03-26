@@ -1,5 +1,6 @@
 package br.com.agenda.web.mvc.logica;
 
+import java.sql.Connection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,11 @@ public class ListaContatosLogica implements Logica{
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		List<Contato> listaContatos = new ContatoDAO().getLista();
+		Connection connection = (Connection) request.getAttribute("conexao");
+		
+		//inversão de controle - ContatoDAO não cria mais a conexão com o banco
+		//injeção de dependência - ContatoDAO agora passa a depender de uma conexão para ser criado 
+		List<Contato> listaContatos = new ContatoDAO(connection).getLista();
 
 		request.setAttribute("listaContatos", listaContatos);
 

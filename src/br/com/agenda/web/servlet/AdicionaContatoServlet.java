@@ -2,6 +2,7 @@ package br.com.agenda.web.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -36,13 +37,14 @@ public class AdicionaContatoServlet extends HttpServlet{
 			dataNascimento = Calendar.getInstance();
 			dataNascimento.setTime(data);
 		} catch (ParseException e) {
-			out.println("Erro na conversão da data de nascimento!");
-			return; //para a execução do método
+			out.println("Erro na conversÃ£o da data de nascimento!");
+			return; //para a execuï¿½ï¿½o do mï¿½todo
 		}
 
 		Contato contato = new Contato(nome, email, endereco, dataNascimento);
 
-		ContatoDAO dao = new ContatoDAO();
+		Connection connection = (Connection) request.getAttribute("conexao");
+		ContatoDAO dao = new ContatoDAO(connection);
 		dao.adiciona(contato);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/contato-adicionado.jsp");
